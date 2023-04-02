@@ -1,7 +1,7 @@
 var player;
-var box;
+//var box;
 var bombs;
-var platforms;
+//var platforms;
 var cursors;
 var score = 0;
 var scoreText;
@@ -30,8 +30,7 @@ create ()
 {
     this.add.image(400, 300, 'bg');
 
-    player = this.physics.add.sprite(100, 450, 'dude');
-    player.setBounce(0.2);
+    player = this.physics.add.sprite(100, 600, 'dude');
     player.setCollideWorldBounds(true);
     player.setGravity(0,0);
     this.anims.create({
@@ -72,6 +71,8 @@ create ()
     scoreText = this.add.text(16, 16, 'Score: 0', { fontSize: '32px', fill: '#000' });
     playerTimeText = this.add.text(420, 16, 'Time: 0:00', { fontSize: '32px', fill: '#000' });
 
+
+    //this.physics.add.overlap(player, enemy, basta collidewithenemy);
     //this.physics.add.collider(player, platforms);
     //this.physics.add.collider(box, platforms);
     //this.physics.add.collider(bombs, platforms);
