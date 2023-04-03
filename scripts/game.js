@@ -25,19 +25,18 @@ function firedBullet() {
     }
     }
     
-  
-//Score,Enemy, bullet
-/*collect star check it to bulletCollide(bullet, enemy){
+function onHit(bullets,enemy){
+    enemy.destroy();
+    bullets.destroy();
+    score+= 1;
+    scoreText.setText('Score: ' + score);
+}
 
-}*/
-
-//Collider For Enemy And Player
-/*stay but change it to collideEnemy(player, enemy){
+function collideEnemy(player,enemy){
     this.physics.pause();
     player.disableBody(true,true);
     this.scene.start('endScene',score,minutes,seconds);
-
-}*/
+}
 
 function hitBomb (player, bomb){
     this.physics.pause();
@@ -51,34 +50,7 @@ function timer(){
     minutes = Math.floor(playerTime / 60);
     seconds = Math.floor(playerTime % 60);
     playerTimeText.setText('Time: ' + minutes + ':' + seconds.toString().padStart(2, '0'));
-    playerTime+= 0.1;
+    playerTime+= 0.01;
 }
 
 
-
-
-function collectStar (player, star)
-{
-    star.disableBody(true, true);
-    score += 10;
-    boxCollected += 1;
-    scoreText.setText('Score: ' + score);
-    boxScoreText.setText('Box Collected: ' + boxCollected);
-
-    if (boxCollected % 5 === 0) {
-        player.setScale(player.scaleX + 0.1, player.scaleY + 0.1);
-    }
-    if (box.countActive(true) === 0)
-    {
-        box.children.iterate(function (child) {
-            child.enableBody(true, Math.random() * game.config.width - 10, 0, true, true);
-        });
-
-        var x = (player.x < 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
-        var bomb = bombs.create(x, 16, 'bomb');
-        bomb.setBounce(1);
-        bomb.setCollideWorldBounds(true);
-        bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
-        bomb.allowGravity = false;
-    }
-}

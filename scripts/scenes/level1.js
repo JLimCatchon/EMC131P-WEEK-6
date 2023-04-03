@@ -1,7 +1,5 @@
 var player;
-
-var bombs;
-
+var enemy;
 var cursors;
 var shoot;
 var score = 0;
@@ -59,8 +57,8 @@ create ()
     cursors = this.input.keyboard.createCursorKeys();
     
 
-    scoreText = this.add.text(16, 16, 'Score: 0', { fontSize: '32px', fill: '#000' });
-    playerTimeText = this.add.text(420, 16, 'Time: 0:00', { fontSize: '32px', fill: '#000' });
+    scoreText = this.add.text(16, 16, 'Score: 0', { fontSize: '32px', fill: '#fff' });
+    playerTimeText = this.add.text(420, 16, 'Time: 0:00', { fontSize: '32px', fill: '#fff' });
     
     
     bullets = this.physics.add.group({
@@ -71,6 +69,22 @@ create ()
         worldBounds: true,
         debug: true  
       });
+
+      enemy = this.physics.add.sprite(Phaser.Math.Between(0, config.width), -50, 'enemy');
+      enemy.setVelocityY(100); // Set the initial velocity of the enemy to make it fall
+    
+      // Add an event to remove the enemy when it goes outside the world bounds
+      this.physics.world.on('worldbounds', function(body) {
+        if (body.gameObject === enemy && body.position.x < 0) {
+          enemy.destroy();
+          // Spawn a new enemy once the previous one has fallen outside the width of the game
+          enemy = this.physics.add.sprite(Phaser.Math.Between(0, config.width), -50, 'enemy');
+          enemy.setVelocityY(100);
+        }
+      }, this);
+
+      this.physics.add.overlap(bullets, enemy, onHit, null, this);
+      this.physics.add.overlap(player, enemy, collideEnemy, null, this);
 }
 
 update ()
