@@ -14,6 +14,7 @@ var clickSoundEffect;
 var bulletCooldown = 200;
 var bulletSound;
 var enemies;
+var spaceKey;
 
 class level1 extends Phaser.Scene{
     constructor(){
@@ -36,6 +37,7 @@ create ()
 {
 
     bulletSound = this.sound.add('pop');
+
     this.cameras.main.setAngle(90);
     this.cameras.main.setBounds(0, 0, this.physics.world.bounds.width, this.physics.world.bounds.height);
     this.add.image(400, 300, 'bg');
@@ -65,7 +67,8 @@ create ()
     });
 
     cursors = this.input.keyboard.createCursorKeys();
-    
+    spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+
     scoreText = this.add.text(100, 680, 'Score: 0', { fontSize: '32px', fill: '#fff' }); 
     scoreText.setRotation(-Math.PI / 2); 
     
@@ -134,7 +137,7 @@ update ()
         player.setVelocityX(0);
         player.anims.play('turn');
     }
-    if (cursors.up.isDown && this.time.now > lastFired + bulletCooldown) {
+    if (spaceKey.isDown && this.time.now > lastFired + bulletCooldown) {
         firedBullet();
         lastFired = this.time.now;
     }
