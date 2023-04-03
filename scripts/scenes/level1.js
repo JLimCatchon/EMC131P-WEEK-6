@@ -106,8 +106,6 @@ create ()
     });
 
     enemy.children.iterate(function(child) {
-        child.setBounce(1);
-        child.setCollideWorldBounds(true);
         child.setVelocity(Phaser.Math.Between(-200, 200), Phaser.Math.Between(200, 400));
     });
 
@@ -141,7 +139,12 @@ update ()
         lastFired = this.time.now;
     }
    timer();
-   
+   enemy.getChildren().forEach(function(enemy) {
+    if (enemy.y > game.config.height) {
+        enemy.destroy();
+        createEnemy();
+    }
+});
 }
 }
 

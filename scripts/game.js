@@ -31,15 +31,9 @@ function onHit(bullets,enemies){
     scoreText.setText('Score: ' + score);
 
      // Spawn new enemy at the top
-     let x = Phaser.Math.Between(100, 700);
-     let y = -50;
-     let newEnemy = enemy.create(x, y, 'bomb');
-     newEnemy.setScale(0.5);
-     newEnemy.setBounce(1);
-     newEnemy.setCollideWorldBounds(true);
-     newEnemy.setVelocity(Phaser.Math.Between(-200, 200), Phaser.Math.Between(200, 400));
+     createEnemy();
 }
-  // spawn a new enemy at the top
+ 
 function collideEnemyAndBullet(player,enemy,bullets){
     this.physics.pause();
     player.disableBody(true,true);
@@ -51,6 +45,13 @@ function timer(){
     seconds = Math.floor(playerTime % 60);
     playerTimeText.setText('Time: ' + minutes + ':' + seconds.toString().padStart(2, '0'));
     playerTime+= 0.01;
+}
+function createEnemy(){
+    let x = Phaser.Math.Between(100, 700);
+     let y = -50;
+     let newEnemy = enemy.create(x, y, 'bomb');
+     newEnemy.setScale(0.5);
+     newEnemy.setVelocity(Phaser.Math.Between(-200, 200), Phaser.Math.Between(200, 400));
 }
 
 
