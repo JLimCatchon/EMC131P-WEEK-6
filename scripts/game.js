@@ -13,7 +13,6 @@ var config = {
 };
 var game = new Phaser.Game(config);
 
-//fired Bullet
 
 function firedBullet() {
     var bullet = bullets.get(player.x, player.y - 40, 'bullet');
@@ -32,22 +31,13 @@ function onHit(bullets,enemy){
     scoreText.setText('Score: ' + score);
 }
 
-
 function collideEnemyAndBullet(player,enemy,bullets){
     this.physics.pause();
     player.disableBody(true,true);
     this.scene.start('endScene',score,minutes,seconds);
 }
 
-function hitBomb (player, bomb){
-    this.physics.pause();
-    player.disableBody(true,true);
-    this.scene.start('endScene',score);
-    }
-
-//timer for survival length
 function timer(){
-    //return minutes and seconds to gameOverScene
     minutes = Math.floor(playerTime / 60);
     seconds = Math.floor(playerTime % 60);
     playerTimeText.setText('Time: ' + minutes + ':' + seconds.toString().padStart(2, '0'));

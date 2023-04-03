@@ -64,10 +64,11 @@ create ()
     cursors = this.input.keyboard.createCursorKeys();
     
 
-    scoreText = this.add.text(100, 680, 'Score: 0', { fontSize: '32px', fill: '#fff' }); // updated position
-    scoreText.setRotation(-Math.PI / 2); // set rotation to negative value
-    playerTimeText = this.add.text(100, 200, 'Time: 0:00', { fontSize: '32px', fill: '#fff' }); // updated position
-    playerTimeText.setRotation(-Math.PI / 2); // set rotation to negative value
+    scoreText = this.add.text(100, 680, 'Score: 0', { fontSize: '32px', fill: '#fff' }); 
+    scoreText.setRotation(-Math.PI / 2); 
+    
+    playerTimeText = this.add.text(100, 200, 'Time: 0:00', { fontSize: '32px', fill: '#fff' }); 
+    playerTimeText.setRotation(-Math.PI / 2); 
     
     
     bullets = this.physics.add.group({
