@@ -29,9 +29,13 @@ preload ()
 
 create ()
 {
+    this.cameras.main.setAngle(90);
+
+    // Set the camera bounds to the vertical dimensions of the game world
+    this.cameras.main.setBounds(0, 0, this.physics.world.bounds.width, this.physics.world.bounds.height);
     this.add.image(400, 300, 'bg');
 
-    player = this.physics.add.sprite(100, 600, 'dude');
+    player = this.physics.add.sprite(400, 680, 'dude');
     player.setCollideWorldBounds(true);
     player.setGravity(0,0);
     this.anims.create({
@@ -57,8 +61,10 @@ create ()
     cursors = this.input.keyboard.createCursorKeys();
     
 
-    scoreText = this.add.text(16, 16, 'Score: 0', { fontSize: '32px', fill: '#fff' });
-    playerTimeText = this.add.text(420, 16, 'Time: 0:00', { fontSize: '32px', fill: '#fff' });
+    scoreText = this.add.text(100, 680, 'Score: 0', { fontSize: '32px', fill: '#fff' }); // updated position
+    scoreText.setRotation(-Math.PI / 2); // set rotation to negative value
+    playerTimeText = this.add.text(100, 200, 'Time: 0:00', { fontSize: '32px', fill: '#fff' }); // updated position
+    playerTimeText.setRotation(-Math.PI / 2); // set rotation to negative value
     
     
     bullets = this.physics.add.group({
@@ -83,9 +89,9 @@ create ()
         }
       }, this);
 
-      this.physics.add.overlap(bullets, enemy, onHit, null, this);
-      this.physics.add.overlap(player, enemy, bullets, collideEnemyAndBullet, null, this);
-      this.physics.add.overlap(player, bullets, collideEnemyAndBullet, null, this);
+    this.physics.add.overlap(bullets, enemy, onHit, null, this);
+    this.physics.add.overlap(player, enemy, collideEnemyAndBullet, null, this);
+    this.physics.add.overlap(player, bullets, collideEnemyAndBullet, null, this);
 }
 
 update ()
