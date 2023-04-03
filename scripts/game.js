@@ -1,7 +1,7 @@
 var config = {
     type: Phaser.AUTO,
     width: 800,
-    height: 600,
+    height: 800,
     physics: {
         default: 'arcade',
         arcade: {
@@ -24,13 +24,22 @@ function firedBullet() {
     }
     }
     
-function onHit(bullets,enemy){
-    enemy.destroy();
+function onHit(bullets,enemies){
+    enemies.destroy();
     bullets.destroy();
-    score+= 1;
+    score += 1;
     scoreText.setText('Score: ' + score);
-}
 
+     // Spawn new enemy at the top
+     let x = Phaser.Math.Between(100, 700);
+     let y = -50;
+     let newEnemy = enemy.create(x, y, 'bomb');
+     newEnemy.setScale(0.5);
+     newEnemy.setBounce(1);
+     newEnemy.setCollideWorldBounds(true);
+     newEnemy.setVelocity(Phaser.Math.Between(-200, 200), Phaser.Math.Between(200, 400));
+}
+  // spawn a new enemy at the top
 function collideEnemyAndBullet(player,enemy,bullets){
     this.physics.pause();
     player.disableBody(true,true);

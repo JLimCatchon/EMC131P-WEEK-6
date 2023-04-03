@@ -13,6 +13,8 @@ var lastFired = 0;
 var clickSoundEffect;
 var bulletCooldown = 200;
 var bulletSound;
+var enemies;
+
 class level1 extends Phaser.Scene{
     constructor(){
         super('level1');
@@ -41,6 +43,7 @@ create ()
     player = this.physics.add.sprite(400, 680, 'dude');
     player.setCollideWorldBounds(true);
     player.setGravity(0,0);
+
     this.anims.create({
         key: 'left',
         frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
@@ -78,21 +81,43 @@ create ()
         worldBounds: true,
         debug: true  
       });
-      //fix problem.
+      
       enemy = this.physics.add.group({
-        key: 'box',
-        repeat: 10,
-        setXY: { x: Math.random(600) * Math.random(200), y: Math.random(600) * Math.random(200), stepX: 40 }
+        defaultKey: {key: 'bomb'},
+        maxSize: 2000,
+        allowGravity: true,
+        runChildUpdate: true,
+        worldBounds: true,
+        debug: true  
     });
-    enemy.children.iterate(function (child) {
-    
-        child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
 
+    enemy.createMultiple({
+        key: 'bomb',
+        repeat: 5,
+        setXY: {
+            x: 100,
+            y: 0,
+            stepX: 100
+        },
+        setScale: {
+            x: 0.5,
+            y: 0.5
+        }
     });
+
+    enemy.children.iterate(function(child) {
+        child.setBounce(1);
+        child.setCollideWorldBounds(true);
+        child.setVelocity(Phaser.Math.Between(-200, 200), Phaser.Math.Between(200, 400));
+    });
+
+   
     this.physics.add.overlap(bullets, enemy, onHit, null, this);
     this.physics.add.overlap(player, enemy, collideEnemyAndBullet, null, this);
     this.physics.add.overlap(player, bullets, collideEnemyAndBullet, null, this);
 }
+
+
 
 update ()
 {
@@ -116,8 +141,7 @@ update ()
         lastFired = this.time.now;
     }
    timer();
+   
 }
-
-
 }
 
