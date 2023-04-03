@@ -63,7 +63,6 @@ create ()
 
     cursors = this.input.keyboard.createCursorKeys();
     
-
     scoreText = this.add.text(100, 680, 'Score: 0', { fontSize: '32px', fill: '#fff' }); 
     scoreText.setRotation(-Math.PI / 2); 
     
@@ -79,20 +78,17 @@ create ()
         worldBounds: true,
         debug: true  
       });
-      //fix enemy spawn rate
-      enemy = this.physics.add.sprite(Phaser.Math.Between(0, config.width), -50, 'enemy');
-      enemy.setVelocityY(100); // Set the initial velocity of the enemy to make it fall
+      //fix problem.
+      enemy = this.physics.add.group({
+        key: 'box',
+        repeat: 10,
+        setXY: { x: Math.random(600) * Math.random(200), y: Math.random(600) * Math.random(200), stepX: 40 }
+    });
+    enemy.children.iterate(function (child) {
     
-      // Add an event to remove the enemy when it goes outside the world bounds
-      this.physics.world.on('worldbounds', function(body) {
-        if (body.gameObject === enemy && body.position.x < 0) {
-          enemy.destroy();
-          // Spawn a new enemy once the previous one has fallen outside the width of the game
-          enemy = this.physics.add.sprite(Phaser.Math.Between(0, config.width), -50, 'enemy');
-          enemy.setVelocityY(100);
-        }
-      }, this);
+        child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
 
+    });
     this.physics.add.overlap(bullets, enemy, onHit, null, this);
     this.physics.add.overlap(player, enemy, collideEnemyAndBullet, null, this);
     this.physics.add.overlap(player, bullets, collideEnemyAndBullet, null, this);
