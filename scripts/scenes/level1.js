@@ -24,6 +24,7 @@ class level1 extends Phaser.Scene{
 
 preload ()
 {
+    //L-O-A-D A-S-S-E-T-S
     //change Everything about this
     this.load.image('bg', 'assets/background/bg.png');
     this.load.image('ground', 'assets/misc/platform.png');
@@ -36,12 +37,18 @@ preload ()
 create ()
 {
 
-    bulletSound = this.sound.add('pop');
-
+    // C-A-M-E-R-A
     this.cameras.main.setAngle(90);
     this.cameras.main.setBounds(0, 0, this.physics.world.bounds.width, this.physics.world.bounds.height);
+    
+    // S-O-U-N-D-S
+    bulletSound = this.sound.add('pop');
+
+    // I-M-A-G-E-S
     this.add.image(400, 300, 'bg');
 
+    
+    // P-L-A-Y-E-R 
     player = this.physics.add.sprite(400, 680, 'dude');
     player.setCollideWorldBounds(true);
     player.setGravity(0,0);
@@ -66,16 +73,19 @@ create ()
         repeat: -1
     });
 
+
+    // C-O-N-T-R-O-L-S
     cursors = this.input.keyboard.createCursorKeys();
     spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
+    // T-E-X-T
     scoreText = this.add.text(100, 680, 'Score: 0', { fontSize: '32px', fill: '#fff' }); 
     scoreText.setRotation(-Math.PI / 2); 
     
     playerTimeText = this.add.text(100, 200, 'Time: 0:00', { fontSize: '32px', fill: '#fff' }); 
     playerTimeText.setRotation(-Math.PI / 2); 
     
-    
+    // B-U-L-L-E-T-S
     bullets = this.physics.add.group({
         defaultKey: {key: 'bullet'},
         maxSize: 2000,
@@ -84,7 +94,7 @@ create ()
         worldBounds: true,
         debug: true  
       });
-      
+    // E-N-E-M-Y S-P-A-W-N
       enemy = this.physics.add.group({
         defaultKey: {key: 'bomb'},
         maxSize: 2000,
@@ -112,7 +122,7 @@ create ()
         child.setVelocity(Phaser.Math.Between(-200, 200), Phaser.Math.Between(200, 400));
     });
 
-   
+    // C-O-L-L-I-D-E-R
     this.physics.add.overlap(bullets, enemy, onHit, null, this);
     this.physics.add.overlap(player, enemy, collideEnemyAndBullet, null, this);
     this.physics.add.overlap(player, bullets, collideEnemyAndBullet, null, this);

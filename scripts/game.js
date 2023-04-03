@@ -29,9 +29,7 @@ function onHit(bullets,enemies){
     bullets.destroy();
     score += 1;
     scoreText.setText('Score: ' + score);
-
-     // Spawn new enemy at the top
-     createEnemy();
+    createEnemy();
 }
  
 function collideEnemyAndBullet(player,enemy,bullets){
