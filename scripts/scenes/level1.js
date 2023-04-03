@@ -90,9 +90,8 @@ create ()
         defaultKey: {key: 'bullet'},
         maxSize: 2000,
         allowGravity: true,
-        runChildUpdate: true,
-        worldBounds: true,
-        debug: true  
+        worldBounds: true
+      
       });
     // E-N-E-M-Y S-P-A-W-N
       enemy = this.physics.add.group({
@@ -112,14 +111,11 @@ create ()
             y: 0,
             stepX: 100
         },
-        setScale: {
-            x: 0.5,
-            y: 0.5
-        }
-    });
+        
+    })
 
     enemy.children.iterate(function(child) {
-        child.setVelocity(Phaser.Math.Between(-200, 200), Phaser.Math.Between(200, 400));
+        child.setVelocity(Phaser.Math.Between(-200, 200), Phaser.Math.Between(200, 400)).setScale(0.5);;
     });
 
     // C-O-L-L-I-D-E-R
