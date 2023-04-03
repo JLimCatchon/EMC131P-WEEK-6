@@ -16,12 +16,12 @@ var game = new Phaser.Game(config);
 //fired Bullet
 
 function firedBullet() {
-   
     var bullet = bullets.get(player.x, player.y - 40, 'bullet');
     if (bullet) {
         bullet.setVelocityY(-600);
         bullet.body.onWorldBounds = true;
         bullet.worldboundsKill = true;
+        bulletSound.play();
     }
     }
     

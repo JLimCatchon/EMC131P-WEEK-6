@@ -10,7 +10,9 @@ var seconds = 0;
 var playerTimeText;
 var bullets;
 var lastFired = 0;
+var clickSoundEffect;
 var bulletCooldown = 200;
+var bulletSound;
 class level1 extends Phaser.Scene{
     constructor(){
         super('level1');
@@ -25,13 +27,14 @@ preload ()
     this.load.image('bomb', 'assets/misc/boxBomb.png');
     this.load.image('bullet', 'assets/misc/testbullet.png')
     this.load.spritesheet('dude', 'assets/spritesheet/dude.png', { frameWidth: 32, frameHeight: 48 });
+    this.load.audio('pop', 'assets/sounds/pop.wav')
 }
 
 create ()
 {
-    this.cameras.main.setAngle(90);
 
-    // Set the camera bounds to the vertical dimensions of the game world
+    bulletSound = this.sound.add('pop');
+    this.cameras.main.setAngle(90);
     this.cameras.main.setBounds(0, 0, this.physics.world.bounds.width, this.physics.world.bounds.height);
     this.add.image(400, 300, 'bg');
 
