@@ -64,12 +64,12 @@ create ()
     bullets = this.physics.add.group({
         defaultKey: {key: 'bullet'},
         maxSize: 2000,
-        allowGravity: false,
+        allowGravity: true,
         runChildUpdate: true,
         worldBounds: true,
         debug: true  
       });
-
+      //fix enemy spawn rate
       enemy = this.physics.add.sprite(Phaser.Math.Between(0, config.width), -50, 'enemy');
       enemy.setVelocityY(100); // Set the initial velocity of the enemy to make it fall
     
@@ -84,7 +84,8 @@ create ()
       }, this);
 
       this.physics.add.overlap(bullets, enemy, onHit, null, this);
-      this.physics.add.overlap(player, enemy, collideEnemy, null, this);
+      this.physics.add.overlap(player, enemy, bullets, collideEnemyAndBullet, null, this);
+      this.physics.add.overlap(player, bullets, collideEnemyAndBullet, null, this);
 }
 
 update ()

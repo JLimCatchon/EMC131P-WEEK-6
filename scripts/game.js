@@ -17,7 +17,7 @@ var game = new Phaser.Game(config);
 
 function firedBullet() {
    
-    var bullet = bullets.get(player.x, player.y - 16, 'bullet');
+    var bullet = bullets.get(player.x, player.y - 40, 'bullet');
     if (bullet) {
         bullet.setVelocityY(-600);
         bullet.body.onWorldBounds = true;
@@ -32,7 +32,8 @@ function onHit(bullets,enemy){
     scoreText.setText('Score: ' + score);
 }
 
-function collideEnemy(player,enemy){
+
+function collideEnemyAndBullet(player,enemy,bullets){
     this.physics.pause();
     player.disableBody(true,true);
     this.scene.start('endScene',score,minutes,seconds);
