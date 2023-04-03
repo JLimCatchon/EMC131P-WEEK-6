@@ -1,8 +1,9 @@
 var player;
-//var box;
+
 var bombs;
-//var platforms;
+
 var cursors;
+var shoot;
 var score = 0;
 var scoreText;
 var playerTime = 0;
@@ -10,6 +11,8 @@ var minutes = 0;
 var seconds = 0;
 var playerTimeText;
 var bullets;
+var lastFired = 0;
+var bulletCooldown = 200;
 class level1 extends Phaser.Scene{
     constructor(){
         super('level1');
@@ -21,8 +24,8 @@ preload ()
     //change Everything about this
     this.load.image('bg', 'assets/background/bg.png');
     this.load.image('ground', 'assets/misc/platform.png');
-    this.load.image('box', 'assets/misc/boxDrop.png');
     this.load.image('bomb', 'assets/misc/boxBomb.png');
+    this.load.image('bullet', 'assets/misc/testbullet.png')
     this.load.spritesheet('dude', 'assets/spritesheet/dude.png', { frameWidth: 32, frameHeight: 48 });
 }
 
@@ -54,32 +57,20 @@ create ()
     });
 
     cursors = this.input.keyboard.createCursorKeys();
-
-    /*box = this.physics.add.group({
-        key: 'box',
-        repeat: 0,
-        setXY: { x: game.config.width * Math.random() - Math.random(80), y: Math.random() * game.config.height - 70, stepX: 40 }
-    });
-    box.children.iterate(function (child) {
     
-        child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
-
-    });*/
-
-    //bombs = this.physics.add.group();
 
     scoreText = this.add.text(16, 16, 'Score: 0', { fontSize: '32px', fill: '#000' });
     playerTimeText = this.add.text(420, 16, 'Time: 0:00', { fontSize: '32px', fill: '#000' });
-
-
-    //this.physics.add.overlap(player, enemy, basta collidewithenemy);
-    //this.physics.add.collider(player, platforms);
-    //this.physics.add.collider(box, platforms);
-    //this.physics.add.collider(bombs, platforms);
- 
-    //this.physics.add.overlap(player, box, collectStar, playerColors, null, this);
-
-    //this.physics.add.collider(player, bombs, hitBomb, null, this);
+    
+    
+    bullets = this.physics.add.group({
+        defaultKey: {key: 'bullet'},
+        maxSize: 2000,
+        allowGravity: false,
+        runChildUpdate: true,
+        worldBounds: true,
+        debug: true  
+      });
 }
 
 update ()
@@ -99,8 +90,13 @@ update ()
         player.setVelocityX(0);
         player.anims.play('turn');
     }
+    if (cursors.up.isDown && this.time.now > lastFired + bulletCooldown) {
+        firedBullet();
+        lastFired = this.time.now;
+    }
    timer();
 }
 
 
 }
+

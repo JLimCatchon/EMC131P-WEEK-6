@@ -15,9 +15,17 @@ var game = new Phaser.Game(config);
 
 //fired Bullet
 
-function firedBullet(){
-
-}
+function firedBullet() {
+   
+    var bullet = bullets.get(player.x, player.y - 16, 'bullet');
+    if (bullet) {
+        bullet.setVelocityY(-600);
+        bullet.body.onWorldBounds = true;
+        bullet.worldboundsKill = true;
+    }
+    }
+    
+  
 //Score,Enemy, bullet
 /*collect star check it to bulletCollide(bullet, enemy){
 
@@ -30,6 +38,7 @@ function firedBullet(){
     this.scene.start('endScene',score,minutes,seconds);
 
 }*/
+
 function hitBomb (player, bomb){
     this.physics.pause();
     player.disableBody(true,true);
