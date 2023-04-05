@@ -43,9 +43,9 @@ function timer(){
     playerTime+= 0.01;
 }
 function createEnemy(){
-     let x = Phaser.Math.Between(100, 600);
-     let y = -50;
-     let newEnemy = enemy.create(x, y, 'bomb');
+     var x = Phaser.Math.Between(100, 600);
+     var y = -50;
+     var newEnemy = enemy.create(x, y, 'bomb');
      newEnemy.setScale(0.5);
      newEnemy.setVelocity(Phaser.Math.Between(-200, 200), Phaser.Math.Between(200, 400));
 }
