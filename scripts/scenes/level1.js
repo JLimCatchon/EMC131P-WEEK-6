@@ -29,6 +29,7 @@ preload ()
     this.load.image('bg', 'assets/background/game_background_4.png');
     this.load.image('bomb', 'assets/misc/boxBomb.png');
     this.load.image('bullet', 'assets/misc/testbullet.png')
+    //change alr
     this.load.spritesheet('wizard', 'assets/spritesheet/AnimationSheet_Character.png', { frameWidth: 32, frameHeight: 32 });
     this.load.audio('pop', 'assets/sounds/pop.wav')
 }
