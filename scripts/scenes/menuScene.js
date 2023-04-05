@@ -7,14 +7,14 @@ class menuScene extends Phaser.Scene{
         
         this.load.image('play','assets/misc/play.png');
         this.load.image('creditsButton','assets/misc/credits.png');
-        this.load.image('menuBackground', 'assets/background/bg.png');
+        this.load.image('menuBackground', 'assets/background/game_background_1.png');
         this.load.image('exitMain', 'assets/misc/exitmain.png');
 
     }
 
     create(){
         
-        this.add.image(400, 300, 'menuBackground');
+        this.add.image(400, 300, 'menuBackground').setScale(1);
         const playButton = this.add.image(400,250,'play').setScale(0.5);
         playButton.setInteractive();
         playButton.on('pointerdown', () => {this.scene.start('level1');

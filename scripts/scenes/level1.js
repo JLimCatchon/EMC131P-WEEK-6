@@ -26,11 +26,10 @@ preload ()
 {
     //L-O-A-D A-S-S-E-T-S
     //change Everything about this
-    this.load.image('bg', 'assets/background/bg.png');
-    this.load.image('ground', 'assets/misc/platform.png');
+    this.load.image('bg', 'assets/background/game_background_4.png');
     this.load.image('bomb', 'assets/misc/boxBomb.png');
     this.load.image('bullet', 'assets/misc/testbullet.png')
-    this.load.spritesheet('dude', 'assets/spritesheet/dude.png', { frameWidth: 32, frameHeight: 48 });
+    this.load.spritesheet('wizard', 'assets/spritesheet/AnimationSheet_Character.png', { frameWidth: 32, frameHeight: 32 });
     this.load.audio('pop', 'assets/sounds/pop.wav')
 }
 
@@ -45,44 +44,29 @@ create ()
     bulletSound = this.sound.add('pop');
 
     // I-M-A-G-E-S
-    this.add.image(400, 300, 'bg');
+    this.add.image(400, 300, 'bg').setAngle(270);
 
     
     // P-L-A-Y-E-R 
-    player = this.physics.add.sprite(400, 680, 'dude');
+    player = this.physics.add.sprite(400, 680, 'wizard');
     player.setCollideWorldBounds(true);
     player.setGravity(0,0);
 
     this.anims.create({
-        key: 'left',
-        frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
+        key: 'stable',
+        frames: [ { key: 'wizard', frame: 0 } ],
         frameRate: 10,
         repeat: -1
     });
-
-    this.anims.create({
-        key: 'turn',
-        frames: [ { key: 'dude', frame: 4 } ],
-        frameRate: 20
-    });
-
-    this.anims.create({
-        key: 'right',
-        frames: this.anims.generateFrameNumbers('dude', { start: 5, end: 8 }),
-        frameRate: 10,
-        repeat: -1
-    });
-
-
     // C-O-N-T-R-O-L-S
     cursors = this.input.keyboard.createCursorKeys();
     spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
     // T-E-X-T
-    scoreText = this.add.text(100, 680, 'Score: 0', { fontSize: '32px', fill: '#fff' }); 
+    scoreText = this.add.text(50, 750, 'Score: 0', { fontSize: '32px', fill: '#fff' }); 
     scoreText.setRotation(-Math.PI / 2); 
     
-    playerTimeText = this.add.text(100, 200, 'Time: 0:00', { fontSize: '32px', fill: '#fff' }); 
+    playerTimeText = this.add.text(50, 200, 'Time: 0:00', { fontSize: '32px', fill: '#fff' }); 
     playerTimeText.setRotation(-Math.PI / 2); 
     
     // B-U-L-L-E-T-S
@@ -131,21 +115,21 @@ update ()
     if (cursors.left.isDown)
     {
         player.setVelocityX(-160);
-        player.anims.play('left', true);
+        
     }
     else if (cursors.right.isDown)
     {
         player.setVelocityX(160);
-        player.anims.play('right', true);
     }
     else
     {
         player.setVelocityX(0);
-        player.anims.play('turn');
+        player.anims.play('stable', true);
     }
     if (spaceKey.isDown && this.time.now > lastFired + bulletCooldown) {
         firedBullet();
         lastFired = this.time.now;
+        player.anims.play('stable', true);
     }
    timer();
    enemy.getChildren().forEach(function(enemy) {
