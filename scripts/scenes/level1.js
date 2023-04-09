@@ -70,10 +70,10 @@ create ()
     spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
     // T-E-X-T
-    scoreText = this.add.text(10, 0, 'Score: 0', { fontSize: '32px', fill: '#fff' }); 
+    scoreText = this.add.text(30, 50, 'Score: 0', { fontSize: '32px', fill: '#fff' }); 
     
     
-    playerTimeText = this.add.text(600, 0, 'Time: 0:00', { fontSize: '32px', fill: '#fff' }); 
+    playerTimeText = this.add.text(550, 50, 'Time: 0:00', { fontSize: '32px', fill: '#fff' }); 
 
     
     // B-U-L-L-E-T-S
