@@ -18,7 +18,7 @@ class gameOverScene extends Phaser.Scene{
         const playerSeconds = seconds.toString().padStart(2, '0');
 
         this.add.image(400, 300, 'gameOverBg');
-        const gameOverText = this.add.text(400, 200, 'Game Over!\nScore: '+ playerScore + '\nTime Survived: '+ playerMinutes +':'+ playerSeconds , {
+        const gameOverText = this.add.text(400, 300, 'Game Over!\nScore: '+ playerScore + '\nTime Survived: '+ playerMinutes +':'+ playerSeconds , {
             fontFamily: 'Arial',
             fontSize: '32px',
             fill: '#fff'
@@ -26,13 +26,13 @@ class gameOverScene extends Phaser.Scene{
         gameOverText.setOrigin(0.5);
         
         // B-U-T-T-O-N-S
-        const resetButton = this.add.image(300,400,'reset').setScale(.4);
+        const resetButton = this.add.image(300,500,'reset').setScale(.4);
         resetButton.setInteractive();
         resetButton.on('pointerdown', () => {this.scene.start('level1');
         score = 0;
         playerTime = 0;
         });
-        const returnMainMenu = this.add.image(500,400,'return').setScale(.4);
+        const returnMainMenu = this.add.image(500,500,'return').setScale(.4);
         returnMainMenu.setInteractive();
         returnMainMenu.on('pointerdown', () => {this.scene.start('menuScene')});
     }

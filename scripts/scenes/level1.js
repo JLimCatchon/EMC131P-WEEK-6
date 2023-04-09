@@ -40,9 +40,6 @@ preload ()
 create ()
 {
 
-    // C-A-M-E-R-A
-    this.cameras.main.setAngle(90);
-    this.cameras.main.setBounds(0, 0, this.physics.world.bounds.width, this.physics.world.bounds.height);
     
     // S-O-U-N-D-S
     bulletSound = this.sound.add('pop');
@@ -54,7 +51,7 @@ create ()
     enemyHitSFX = this.sound.add('hitSFX');
 
     // I-M-A-G-E-S
-    this.add.image(400, 300, 'bg').setAngle(270);
+    this.add.image(400, 300, 'bg');
 
     
     // P-L-A-Y-E-R 
@@ -73,11 +70,11 @@ create ()
     spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
     // T-E-X-T
-    scoreText = this.add.text(50, 750, 'Score: 0', { fontSize: '32px', fill: '#fff' }); 
-    scoreText.setRotation(-Math.PI / 2); 
+    scoreText = this.add.text(10, 0, 'Score: 0', { fontSize: '32px', fill: '#fff' }); 
     
-    playerTimeText = this.add.text(50, 200, 'Time: 0:00', { fontSize: '32px', fill: '#fff' }); 
-    playerTimeText.setRotation(-Math.PI / 2); 
+    
+    playerTimeText = this.add.text(600, 0, 'Time: 0:00', { fontSize: '32px', fill: '#fff' }); 
+
     
     // B-U-L-L-E-T-S
     bullets = this.physics.add.group({
