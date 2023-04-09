@@ -15,7 +15,7 @@ var game = new Phaser.Game(config);
 
 
 function firedBullet() {
-    var bullet = bullets.get(player.x, player.y - 40, 'bullet');
+    var bullet = bullets.get(player.x, player.y - 40, 'bullet').setScale(2);
         bullet.setVelocityY(-600);
         bullet.body.onWorldBounds = true;
         bullet.worldboundsKill = true;
@@ -28,12 +28,15 @@ function onHit(bullets,enemies){
     score += 1;
     scoreText.setText('Score: ' + score);
     createEnemy();
+    enemyHitSFX.play();
+    
 }
  
 function collideEnemyAndBullet(player,enemy,bullets){
     this.physics.pause();
     player.disableBody(true,true);
     this.scene.start('endScene',score,minutes,seconds);
+    gameBGM.stop();
 }
 
 function timer(){
@@ -45,7 +48,7 @@ function timer(){
 function createEnemy(){
      var x = Phaser.Math.Between(100, 600);
      var y = -50;
-     var newEnemy = enemy.create(x, y, 'bomb');
+     var newEnemy = enemy.create(x, y, 'frog');
      newEnemy.setScale(0.5);
      newEnemy.setVelocity(Phaser.Math.Between(-200, 200), Phaser.Math.Between(200, 400));
 }

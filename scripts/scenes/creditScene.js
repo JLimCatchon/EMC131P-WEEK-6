@@ -5,8 +5,8 @@ class creditScene extends Phaser.Scene{
     }
     preload(){
    
-        this.load.image('return','assets/misc/exitbutton.png');
-        this.load.image('crd','assets/background/credits.png');
+        this.load.image('return','assets/misc/ExitButton.jpg');
+        this.load.image('crd','assets/background/game_background_2.png');
         
     }
     create(){

@@ -15,7 +15,8 @@ var bulletCooldown = 200;
 var bulletSound;
 var enemies;
 var spaceKey;
-
+var enemyHitSFX;
+var gameBGM;
 class level1 extends Phaser.Scene{
     constructor(){
         super('level1');
@@ -27,11 +28,13 @@ preload ()
     //L-O-A-D A-S-S-E-T-S
     //change Everything about this
     this.load.image('bg', 'assets/background/game_background_4.png');
-    this.load.image('bomb', 'assets/misc/boxBomb.png');
-    this.load.image('bullet', 'assets/misc/testbullet.png')
+    this.load.image('frog', 'assets/enemy/frog-x4.gif');
+    this.load.image('bullet', 'assets/misc/fire-ball.gif')
     //change alr
     this.load.spritesheet('wizard', 'assets/spritesheet/AnimationSheet_Character.png', { frameWidth: 32, frameHeight: 32 });
-    this.load.audio('pop', 'assets/sounds/pop.wav')
+    this.load.audio('pop', 'assets/sounds/Fire_AttackF1.wav');
+    this.load.audio('gameSFX', 'assets/sounds/game.wav');
+    this.load.audio('hitSFX', 'assets/sounds/Splat3.wav');
 }
 
 create ()
@@ -43,6 +46,12 @@ create ()
     
     // S-O-U-N-D-S
     bulletSound = this.sound.add('pop');
+
+    gameBGM = this.sound.add('gameSFX');
+    gameBGM.loop = true;
+    gameBGM.play();
+
+    enemyHitSFX = this.sound.add('hitSFX');
 
     // I-M-A-G-E-S
     this.add.image(400, 300, 'bg').setAngle(270);
@@ -80,7 +89,7 @@ create ()
       });
     // E-N-E-M-Y S-P-A-W-N
       enemy = this.physics.add.group({
-        defaultKey: {key: 'bomb'},
+        defaultKey: {key: 'frog'},
         maxSize: 2000,
         allowGravity: true,
         runChildUpdate: true,
@@ -89,7 +98,7 @@ create ()
     });
 
     enemy.createMultiple({
-        key: 'bomb',
+        key: 'frog',
         repeat: 5,
         setXY: {
             x: 100,
